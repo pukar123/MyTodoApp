@@ -1,0 +1,59 @@
+<main class="login-page">
+  <section class="login-card" aria-labelledby="login-heading">
+    <header class="login-header">
+      <div class="logo" aria-hidden="true">&#10003;</div>
+      <h1 id="login-heading">Todo App</h1>
+      <p class="subtitle">Sign in to manage your tasks</p>
+    </header>
+
+    @if (errorMessage(); as message) {
+      <div class="alert alert-error" role="alert">{{ message }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="email"
+          formControlName="username"
+          autocomplete="username"
+          placeholder="you@example.com"
+          [class.invalid]="isInvalid('username')"
+        />
+        @if (isInvalid('username')) {
+          <p class="field-error">Username is required.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="Your password"
+          [class.invalid]="isInvalid('password')"
+        />
+        @if (isInvalid('password')) {
+          <p class="field-error">Password is required.</p>
+        }
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit" [disabled]="submitting()">
+        @if (submitting()) {
+          Signing in&hellip;
+        } @else {
+          Sign in
+        }
+      </button>
+    </form>
+
+    <aside class="demo-hint">
+      <strong>Demo credentials</strong>
+      <p>Username: <code>demo&#64;todo.local</code></p>
+      <p>Password: <code>Demo123!</code></p>
+    </aside>
+  </section>
+</main>
